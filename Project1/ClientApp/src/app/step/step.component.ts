@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ItemDTO, StepDTO, SwaggerClient } from '../services/SwaggerClient.service';
+import { ItemDTO, SearchField, StepDTO, SwaggerClient } from '../services/SwaggerClient.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
 
@@ -27,7 +27,7 @@ export class StepComponent implements OnInit {
      this.getAllSteps()
   }
   getAllSteps() {
-    this.swagger.apiStepGetAllDetailsGet().subscribe(result => {
+    this.swagger.apiStepGetAllDetailsGet([],"Id","asc",0,100,false).subscribe(result => {
       this.steps = result;
       if(result.length > 0)
           this.currentStep = result[0];
@@ -65,7 +65,7 @@ export class StepComponent implements OnInit {
   }
   getStepItems(id:any)
   {
-    this.swagger.apiItemGetStepItemsGet(id).subscribe(res => {
+    this.swagger.apiItemGetAllDetailsGet([<SearchField>{fieldName:'StepId', operator:'Equal' , value: id}],"Id","asc",0,100,false).subscribe(res => {
       this.items = res;
       this.currentStep = this.steps.filter(x => x.id == id)[0];
     });

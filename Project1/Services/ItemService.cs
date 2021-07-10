@@ -17,11 +17,5 @@ namespace Project1.Services
         {
 
         }
-
-
-        public IEnumerable<ItemDTO> GetStepItems(int? StepId)
-        {
-            return _UnitOfWork.Repository<Item>().GetAll().Where(i => i.StepId == StepId).ProjectTo<ItemDTO>(_Mapper.ConfigurationProvider);
-        }
     }
 }

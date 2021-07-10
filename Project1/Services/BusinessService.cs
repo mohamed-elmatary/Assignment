@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Project1.Extensions;
 using Project1.IRepositories;
 using Project1.IServices;
+using Project1.Models.MainContext.Extensions;
 using Project1.Models.Models;
 using System;
 using System.Collections.Generic;
@@ -28,9 +30,9 @@ namespace Project1.Services
     {
         public BusinessService(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
 
-        public virtual IEnumerable<T> GetAll<T>(bool WithTracking = true)
+        public virtual IQueryable<T> GetAll<T>(SearchModel searchModel, bool WithTracking = true)
         {
-            IQueryable query = this._UnitOfWork.Repository<TDbEntity>().GetAll(WithTracking);
+            IQueryable query = this._UnitOfWork.Repository<TDbEntity>().GetAll(WithTracking).DynamicSearch(searchModel).ToCustomPagedList(searchModel.take, searchModel.skip);
             if (typeof(TDbEntity) == typeof(T))
                 return query.Cast<T>();
             else

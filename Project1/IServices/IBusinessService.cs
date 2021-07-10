@@ -1,4 +1,5 @@
-﻿using Project1.Models.Models;
+﻿using Project1.Extensions;
+using Project1.Models.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Project1.IServices
     public interface IBusinessService<TDbEntity, TDetailsDTO> : IBusinessService
         where TDbEntity : _BaseEntity
     {
-        IEnumerable<T> GetAll<T>(bool WithTracking = true);
+        IQueryable<T> GetAll<T>(SearchModel searchModel, bool WithTracking = true);
         TDetailsDTO GetDetails(object Id, bool WithTracking = true);
         IEnumerable<TDetailsDTO> Insert(IEnumerable<TDetailsDTO> entities);
         IEnumerable<object> Delete(IEnumerable<object> Ids);

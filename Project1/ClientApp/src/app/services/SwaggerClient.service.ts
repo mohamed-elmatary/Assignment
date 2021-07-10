@@ -89,10 +89,45 @@ export class SwaggerClient {
     }
 
     /**
+     * @param searchFields (optional) 
+     * @param orderBy (optional) 
+     * @param orderType (optional) 
+     * @param skip (optional) 
+     * @param take (optional) 
+     * @param withTracking (optional) 
      * @return Success
      */
-    apiItemGetAllDetailsGet(): Observable<ItemDTO[]> {
-        let url_ = this.baseUrl + "/api/Item/GetAllDetails";
+    apiItemGetAllDetailsGet(searchFields: SearchField[] | undefined, orderBy: string | undefined, orderType: string | undefined, skip: number | undefined, take: number | undefined, withTracking: boolean | undefined): Observable<ItemDTO[]> {
+        let url_ = this.baseUrl + "/api/Item/GetAllDetails?";
+        if (searchFields === null)
+            throw new Error("The parameter 'searchFields' cannot be null.");
+        else if (searchFields !== undefined)
+            searchFields && searchFields.forEach((item, index) => {
+                for (let attr in item)
+        			if (item.hasOwnProperty(attr)) {
+        				url_ += "SearchFields[" + index + "]." + attr + "=" + encodeURIComponent("" + (<any>item)[attr]) + "&";
+        			}
+            });
+        if (orderBy === null)
+            throw new Error("The parameter 'orderBy' cannot be null.");
+        else if (orderBy !== undefined)
+            url_ += "OrderBy=" + encodeURIComponent("" + orderBy) + "&";
+        if (orderType === null)
+            throw new Error("The parameter 'orderType' cannot be null.");
+        else if (orderType !== undefined)
+            url_ += "OrderType=" + encodeURIComponent("" + orderType) + "&";
+        if (skip === null)
+            throw new Error("The parameter 'skip' cannot be null.");
+        else if (skip !== undefined)
+            url_ += "skip=" + encodeURIComponent("" + skip) + "&";
+        if (take === null)
+            throw new Error("The parameter 'take' cannot be null.");
+        else if (take !== undefined)
+            url_ += "take=" + encodeURIComponent("" + take) + "&";
+        if (withTracking === null)
+            throw new Error("The parameter 'withTracking' cannot be null.");
+        else if (withTracking !== undefined)
+            url_ += "WithTracking=" + encodeURIComponent("" + withTracking) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -392,10 +427,45 @@ export class SwaggerClient {
     }
 
     /**
+     * @param searchFields (optional) 
+     * @param orderBy (optional) 
+     * @param orderType (optional) 
+     * @param skip (optional) 
+     * @param take (optional) 
+     * @param withTracking (optional) 
      * @return Success
      */
-    apiStepGetAllDetailsGet(): Observable<StepDTO[]> {
-        let url_ = this.baseUrl + "/api/Step/GetAllDetails";
+    apiStepGetAllDetailsGet(searchFields: SearchField[] | undefined, orderBy: string | undefined, orderType: string | undefined, skip: number | undefined, take: number | undefined, withTracking: boolean | undefined): Observable<StepDTO[]> {
+        let url_ = this.baseUrl + "/api/Step/GetAllDetails?";
+        if (searchFields === null)
+            throw new Error("The parameter 'searchFields' cannot be null.");
+        else if (searchFields !== undefined)
+            searchFields && searchFields.forEach((item, index) => {
+                for (let attr in item)
+        			if (item.hasOwnProperty(attr)) {
+        				url_ += "SearchFields[" + index + "]." + attr + "=" + encodeURIComponent("" + (<any>item)[attr]) + "&";
+        			}
+            });
+        if (orderBy === null)
+            throw new Error("The parameter 'orderBy' cannot be null.");
+        else if (orderBy !== undefined)
+            url_ += "OrderBy=" + encodeURIComponent("" + orderBy) + "&";
+        if (orderType === null)
+            throw new Error("The parameter 'orderType' cannot be null.");
+        else if (orderType !== undefined)
+            url_ += "OrderType=" + encodeURIComponent("" + orderType) + "&";
+        if (skip === null)
+            throw new Error("The parameter 'skip' cannot be null.");
+        else if (skip !== undefined)
+            url_ += "skip=" + encodeURIComponent("" + skip) + "&";
+        if (take === null)
+            throw new Error("The parameter 'take' cannot be null.");
+        else if (take !== undefined)
+            url_ += "take=" + encodeURIComponent("" + take) + "&";
+        if (withTracking === null)
+            throw new Error("The parameter 'withTracking' cannot be null.");
+        else if (withTracking !== undefined)
+            url_ += "WithTracking=" + encodeURIComponent("" + withTracking) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -741,6 +811,50 @@ export interface IItemDTO {
     title?: string | undefined;
     description?: string | undefined;
     stepId?: number;
+}
+
+export class SearchField implements ISearchField {
+    fieldName?: string | undefined;
+    operator?: string | undefined;
+    value?: string | undefined;
+
+    constructor(data?: ISearchField) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.fieldName = _data["fieldName"];
+            this.operator = _data["operator"];
+            this.value = _data["value"];
+        }
+    }
+
+    static fromJS(data: any): SearchField {
+        data = typeof data === 'object' ? data : {};
+        let result = new SearchField();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["fieldName"] = this.fieldName;
+        data["operator"] = this.operator;
+        data["value"] = this.value;
+        return data; 
+    }
+}
+
+export interface ISearchField {
+    fieldName?: string | undefined;
+    operator?: string | undefined;
+    value?: string | undefined;
 }
 
 export class StepDTO implements IStepDTO {

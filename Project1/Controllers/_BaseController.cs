@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Project1.Extensions;
 using Project1.IServices;
 using Project1.Models.Models;
 using System;
@@ -33,9 +34,9 @@ namespace Project1.Controllers
 
 
         [HttpGet, Route("GetAllDetails")]
-        public virtual IEnumerable<TDetailsDTO> GetAllDetails()
+        public virtual IQueryable<TDetailsDTO> GetAll(SearchModel searchModel, bool WithTracking = true)
         {
-            return this.BusinessService.GetAll<TDetailsDTO>(false);
+            return this.BusinessService.GetAll<TDetailsDTO>(searchModel, false);
         }
 
 

@@ -9,7 +9,6 @@ namespace Project1.IServices
 {
     public interface IItemService : IBusinessService<Item, ItemDTO>
     {
-        IEnumerable<ItemDTO> GetStepItems(int? StepId);
 
     }
 }

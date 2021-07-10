@@ -20,11 +20,6 @@ namespace Project1.Controllers
             this._itemServicee = itemServicee;
         }
 
-        [HttpGet]
-        [Route("GetStepItems")]
-        public IEnumerable<ItemDTO> GetStepItems(int? StepId)
-        {
-            return _itemServicee.GetStepItems(StepId);
-        }
+
     }
 }
