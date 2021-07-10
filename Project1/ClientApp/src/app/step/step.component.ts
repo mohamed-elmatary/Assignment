@@ -30,7 +30,10 @@ export class StepComponent implements OnInit {
     this.swagger.apiStepGetAllDetailsGet([],"Id","asc",0,100,false).subscribe(result => {
       this.steps = result;
       if(result.length > 0)
+       {   
           this.currentStep = result[0];
+          this.getStepItems(this.currentStep.id)
+       }
     });
   }
 
