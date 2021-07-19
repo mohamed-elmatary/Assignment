@@ -12,8 +12,7 @@ namespace Project1.Services.Mapping
     {
         public StepProfile()
         {
-            CreateMap<Item, ItemDTO>();
-            CreateMap<ItemDTO, Item>();
+            CreateMap<Item, ItemDTO>().ReverseMap();
         }
 
 

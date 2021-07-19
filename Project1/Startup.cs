@@ -69,7 +69,7 @@ namespace Project1
 
             });
             services.AddSwaggerGenNewtonsoftSupport();
-            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddSpaStaticFiles(configuration =>
             {
